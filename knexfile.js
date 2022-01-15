@@ -13,6 +13,16 @@ module.exports = {
       directory: path.join(__dirname, "src", "db", "seeds"),
     },
   },
+  production: {
+    client: 'postgresql',
+    connection: "postgres://gwpjyyab:TCP1gy3GK_BxT-Lf7_rCEbdchXlUuYbb@ziggy.db.elephantsql.com/gwpjyyab",
+    migrations: {
+      directory: path.join(__dirname, "src", "db", "migrations"),
+    },
+    seeds: {
+      directory: path.join(__dirname, "src", "db", "seeds"),
+    },
+  },
 };
 
 // https://safe-fortress-24111.herokuapp.com/
