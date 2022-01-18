@@ -16,7 +16,7 @@ function deckExists(req, res, next) {
 
 function list(req, res, next) {
     decksService
-        .list()
+        .list(req.params.userId)
         .then((data) => res.json({ data }))
         .catch(next)
 }
@@ -24,6 +24,10 @@ function list(req, res, next) {
 function read(req, res, next) {
     res.json({ data: res.locals.deck })
 }
+
+/* function create(req, res, next) {
+    
+} */
 
 module.exports = {
     list: [asyncErrorBoundary(list)],

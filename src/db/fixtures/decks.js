@@ -1,9 +1,11 @@
 module.exports = [
     {
+        user_id: "0001",
         deck_name: "Miracle Lapse",
         deck_cards: [],
     },
     {
+        user_id: "0001",
         deck_name: "Forbidden Illness",
         deck_cards: [],
     }
