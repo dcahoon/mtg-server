@@ -3,7 +3,7 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary")
 
 function deckExists(req, res, next) {
     decksService
-        .read(req.params.deckId)
+        .read(req.params.userId, req.params.deckId)
         .then((deck) => {
             if (deck) {
                 res.locals.deck = deck
@@ -25,11 +25,43 @@ function read(req, res, next) {
     res.json({ data: res.locals.deck })
 }
 
-/* function create(req, res, next) {
-    
-} */
+async function create(req, res, next) {
+    const newDeck = await decksService.create(req.body.data)
+    res.status(201).json({
+        data: newDeck,
+    })
+}
+
+async function update(req, res, next) {
+    const updatedDeck = {
+        deck_id: req.params.deckId,
+        ...req.body.data
+    }
+    decksService
+        .update(updatedDeck)
+        .then((data) => res.json({ data }))
+        .catch(next)
+}
+
+function destroy(req, res, next) {
+    decksService
+        .destroy(req.params.deckId)
+        .then(() => res.sendStatus(204))
+        .catch(next)
+}
+
+async function allDecks(req, res, next) {
+    decksService
+        .allDecks()
+        .then((data) => res.json({ data }))
+        .catch(next)
+}
 
 module.exports = {
     list: [asyncErrorBoundary(list)],
-    read: [asyncErrorBoundary(deckExists), asyncErrorBoundary(read)]
+    read: [asyncErrorBoundary(deckExists), asyncErrorBoundary(read)],
+    create: [asyncErrorBoundary(create)],
+    update: [asyncErrorBoundary(update)],
+    destroy: [asyncErrorBoundary(deckExists), asyncErrorBoundary(destroy)],
+    allDecks: [asyncErrorBoundary(allDecks)],
 }

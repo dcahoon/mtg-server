@@ -1,12 +1,14 @@
 const express = require("express")
 const app = express()
 const decksRouter = require("./decks/decks.router")
+const usersRouter = require("./users/users.router")
 const cors = require("cors")
 
 app.use(express.json())
 
 app.use(cors({ origin: "http://localhost:3000"}))
 app.use("/decks", decksRouter)
+app.use("/users", usersRouter)
 
 // Not found handler
 app.use((req, res, next) => {
