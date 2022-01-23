@@ -1,7 +1,7 @@
 module.exports = [
     {
         user_id: "1",
-        deck_name: "Miracle Lapse",
+        deck_name: "Deck Name 1",
         deck_cards: [
             {
                 name: "Memory Lapse",
@@ -37,8 +37,8 @@ module.exports = [
     },
     {
         user_id: "1",
-        deck_name: "Forbidden Illness",
-        deck_cards: "",
+        deck_name: "Deck Name 2",
+        deck_cards: [],
     }
 ]
 
