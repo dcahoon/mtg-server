@@ -5,25 +5,27 @@ exports.up = async function(knex) {
         table.string("multiverseid").primary()
         table.string("name")
         table.string("artist")
+        table.specificType("colors", 'text ARRAY')
+        table.specificType("color_identity", 'text ARRAY')
         table.integer("cmc")
         table.string("id")
         table.string("image_url")
-        table.string("legalities")
+        table.specificType("legalities", 'text ARRAY')
         table.string("mana_cost")
         table.integer("number")
         table.text("original_text")
         table.string("original_type")
         table.integer("power")
         table.integer("toughness")
-        table.text("printings")
+        table.specificType("printings", 'text ARRAY')
         table.string("rarity")
-        table.text("rulings")
+        table.specificType("rulings", 'text ARRAY')
         table.string("set")
         table.string("set_name")
-        table.string("subtypes")
+        table.specificType("subtypes", 'text ARRAY')
         table.text("text")
         table.string("type")
-        table.string("types")
+        table.specificType("types", 'text ARRAY')
         table.timestamps(true, true)
     })
 };
@@ -31,6 +33,8 @@ exports.up = async function(knex) {
 exports.down = function(knex) {
     return knex.schema.dropTable("cards")
 };
+
+//color_identity, colors, legalities, printings, types, rulings, subtypes
 
 /* 
     name
