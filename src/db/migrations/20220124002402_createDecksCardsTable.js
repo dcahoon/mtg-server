@@ -1,6 +1,5 @@
-
 exports.up = function(knex) {
-    await knex.schema.createTable("decks_cards", (table) => {
+    return knex.schema.createTable("decks_cards", (table) => {
         table.string("multiverseid")
         table
             .foreign("multiverseid")

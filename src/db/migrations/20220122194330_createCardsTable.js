@@ -1,7 +1,7 @@
 
 exports.up = async function(knex) {
     
-    await knex.schema.createTable("cards", (table) => {
+    return knex.schema.createTable("cards", (table) => {
         table.string("multiverseid").primary()
         table.string("name")
         table.string("artist")
