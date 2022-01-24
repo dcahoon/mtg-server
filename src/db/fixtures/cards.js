@@ -27,7 +27,7 @@ module.exports = [
     {
         multiverseid: "366354",
         name: "Illness in the Ranks",
-        color: ['Black'],
+        colors: ['Black'],
         color_identity: ['B'],
         artist: "Nils Hamm",
         cmc: 1,
@@ -48,10 +48,12 @@ module.exports = [
         original_type: "Enchantment",
         printings: ['GTC'],
         rarity: "Uncommon",
-        rulings: {
-            "date": "2013-01-24",
-            "text": "If an effect creates a creature token that normally has toughness 1, it will enter the battlefield with toughness 0, be put into its owner’s graveyard as a state-based action, and then cease to exist. Any abilities that trigger when a creature enters the battlefield or dies will trigger."
-        },
+        rulings: [
+            {
+                "date": "2013-01-24",
+                "text": "If an effect creates a creature token that normally has toughness 1, it will enter the battlefield with toughness 0, be put into its owner’s graveyard as a state-based action, and then cease to exist. Any abilities that trigger when a creature enters the battlefield or dies will trigger."
+            },
+        ],
         set: "GTC",
         set_name: "Gatecrash",
         text: "Creature tokens get -1/-1.",
@@ -62,7 +64,7 @@ module.exports = [
         multiverseid: "376368",
         name: "Hunted Troll",
         artist: "Greg Staples",
-        color: ['Green'],
+        colors: ['Green'],
         color_identity: ['G'],
         cmc: 4,
         id: "188b033e-e929-5ca8-a442-47d0c879df0b",
@@ -138,7 +140,6 @@ module.exports = [
         colors: ['Green', 'White'],
         id: "0f898385-0be0-522a-9e39-a03ba3aad2dc",
         image_url: "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=158771&type=card",
-        layout: "normal",
         legalities: [
             {format: 'Commander', legality: 'Legal'},
             {format: 'Duel', legality: 'Legal'},
