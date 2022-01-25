@@ -14,22 +14,15 @@ function deckExists(req, res, next) {
         .catch(next)
 }
 
-function list(req, res, next) {
-    decksService
-        .list(req.params.userId)
-        .then((data) => res.json({ data }))
-        .catch(next)
-}
-
-function read(req, res, next) {
-    res.json({ data: res.locals.deck })
-}
-
 async function create(req, res, next) {
     const newDeck = await decksService.create(req.body.data)
     res.status(201).json({
         data: newDeck,
     })
+}
+
+function read(req, res, next) {
+    res.json({ data: res.locals.deck })
 }
 
 async function update(req, res, next) {
@@ -50,6 +43,13 @@ function destroy(req, res, next) {
         .catch(next)
 }
 
+function list(req, res, next) {
+    decksService
+        .list(req.params.userId)
+        .then((data) => res.json({ data }))
+        .catch(next)
+}
+
 async function allDecks(req, res, next) {
     decksService
         .allDecks()
@@ -58,10 +58,10 @@ async function allDecks(req, res, next) {
 }
 
 module.exports = {
-    list: [asyncErrorBoundary(list)],
-    read: [asyncErrorBoundary(deckExists), asyncErrorBoundary(read)],
     create: [asyncErrorBoundary(create)],
+    read: [asyncErrorBoundary(deckExists), asyncErrorBoundary(read)],
     update: [asyncErrorBoundary(update)],
     destroy: [asyncErrorBoundary(deckExists), asyncErrorBoundary(destroy)],
+    list: [asyncErrorBoundary(list)],
     allDecks: [asyncErrorBoundary(allDecks)],
 }

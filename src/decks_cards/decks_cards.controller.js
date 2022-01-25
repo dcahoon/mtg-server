@@ -16,30 +16,16 @@ function deckCardExists(req, res, next) {
         .catch(next)
 }
 
-function read(req, res, next) {
-    res.json({ data: res.locals.deckCard })
-}
-
-function list(req, res, next) {
-    decksCardsService
-        .list(req.params.deckId)
-        .then((data) => res.json({ data }))
-        .catch(next)
-}
-
-function allDecksCards(req, res, next) {
-    decksCardsService
-        .allDecksCards()
-        .then((data) => res.json({ data }))
-        .catch(next)
-}
-
 async function create(req, res, next) {
     const newDeckCard = await decksCardsService.create(req.body.data)
     res.status(201).json({
         data: newDeckCard
     })
     .catch(next)
+}
+
+function read(req, res, next) {
+    res.json({ data: res.locals.deckCard })
 }
 
 function update(req, res, next) {
@@ -60,11 +46,25 @@ function destroy(req, res, next) {
         .catch(next)
 }
 
+function list(req, res, next) {
+    decksCardsService
+        .list(req.params.deckId)
+        .then((data) => res.json({ data }))
+        .catch(next)
+}
+
+function allDecksCards(req, res, next) {
+    decksCardsService
+        .allDecksCards()
+        .then((data) => res.json({ data }))
+        .catch(next)
+}
+
 module.exports = {
+    create,
     read: [deckCardExists, read],
+    update: [deckCardExists, update],
+    destroy: [deckCardExists, destroy],
     list,
     allDecksCards,
-    create,
-    destroy: [deckCardExists, destroy],
-    update: [deckCardExists, update],
 }

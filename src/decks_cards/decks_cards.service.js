@@ -1,8 +1,10 @@
 const knex = require("../db/connection")
 
-function allDecksCards() {
+function create(newDeckCard) {
     return knex("decks_cards")
-        .select("*")
+        .insert(newDeckCard)
+        .returning("*")
+        .then((createdDeckCards) => createdDeckCards[0])
 }
 
 function read(deckId, cardId) {
@@ -10,19 +12,6 @@ function read(deckId, cardId) {
         .select("*")
         .where({ deck_id: deckId, multiverseid: cardId })
         .first()
-}
-
-function list(deckId) {
-    return knex("decks_cards")
-        .select("*")
-        .where({ "deck_id": deckId })
-}
-
-function create(newDeckCard) {
-    return knex("decks_cards")
-        .insert(newDeckCard)
-        .returning("*")
-        .then((createdDeckCards) => createdDeckCards[0])
 }
 
 function update(updatedDeckCard) {
@@ -40,11 +29,22 @@ function destroy(deckId, cardId) {
         .delete()
 }
 
+function list(deckId) {
+    return knex("decks_cards")
+        .select("*")
+        .where({ "deck_id": deckId })
+}
+
+function allDecksCards() {
+    return knex("decks_cards")
+        .select("*")
+}
+
 module.exports = {
-    allDecksCards,
-    list,
     create,
-    destroy,
     read,
     update,
+    destroy,
+    list,
+    allDecksCards,
 }

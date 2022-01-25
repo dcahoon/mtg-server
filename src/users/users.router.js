@@ -6,6 +6,12 @@ router.route("/new")
     .post(controller.create)
     .all(methodNotAllowed)
 
+router.route("/:userId")
+    .get(controller.read)
+    .put(controller.update)
+    .delete(controller.destroy)
+    .all(methodNotAllowed)
+
 router.route("/")
     .get(controller.list)
     .all(methodNotAllowed)

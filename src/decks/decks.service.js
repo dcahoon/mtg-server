@@ -7,17 +7,6 @@ function create(newDeck) {
         .then((createdDecks) => createdDecks[0])
 }
 
-function list(userId) {
-    return knex("decks as d")
-        .select("*")
-        .where({ "d.user_id": userId })
-}
-
-function allDecks() {
-    return knex("decks")
-        .select("*")
-}
-
 function read(userId, deckId) {
     return knex("decks as d")
         .select("*")
@@ -39,24 +28,22 @@ function destroy(deck_id) {
         .del()
 }
 
-module.exports = {
-    create,
-    list,
-    read,
-    destroy,
-    update,
-    allDecks,
+function list(userId) {
+    return knex("decks as d")
+        .select("*")
+        .where({ "d.user_id": userId })
 }
 
-/* 
-{
-    "data": {
-        "deck_id": 3,
-        "deck_name": "Updated Deck Name",
-        "user_id": "0002",
-        "deck_cards": "{}",
-        "created_at": "2022-01-18T22:47:58.315Z",
-        "updated_at": "2022-01-18T22:47:58.315Z"
-    }
+function allDecks() {
+    return knex("decks")
+        .select("*")
 }
- */
+
+module.exports = {
+    create,
+    read,
+    update,
+    destroy,
+    list,
+    allDecks,
+}
