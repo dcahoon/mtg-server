@@ -14,17 +14,6 @@ function cardExists(req, res, next) {
         .catch(next)
 }
 
-function list(req, res, next) {
-    cardsService
-        .list()
-        .then((data) => res.json({ data }))
-        .catch(next)
-}
-
-function read(req, res, next) {
-    res.json({ data: res.locals.card })
-}
-
 async function create(req, res, next) {
     const newCard = await cardsService.create(req.body.data)
     res.status(201).json({
@@ -32,8 +21,19 @@ async function create(req, res, next) {
     })
 }
 
+function read(req, res, next) {
+    res.json({ data: res.locals.card })
+}
+
+function list(req, res, next) {
+    cardsService
+        .list()
+        .then((data) => res.json({ data }))
+        .catch(next)
+}
+
 module.exports = {
-    list: [asyncErrorBoundary(list)],
-    read: [asyncErrorBoundary(cardExists), asyncErrorBoundary(read)],
     create: [asyncErrorBoundary(create)],
+    read: [asyncErrorBoundary(cardExists), asyncErrorBoundary(read)],
+    list: [asyncErrorBoundary(list)],
 }

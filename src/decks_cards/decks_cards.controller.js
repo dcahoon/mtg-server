@@ -30,7 +30,9 @@ function read(req, res, next) {
 
 function update(req, res, next) {
     const updatedDeckCard = {
-        ...req.body.data
+        ...req.body.data,
+        deck_id: req.params.deckId,
+        multiverseid: req.params.cardId,
     }
     decksCardsService
         .update(updatedDeckCard)

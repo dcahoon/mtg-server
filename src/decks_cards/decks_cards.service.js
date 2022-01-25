@@ -26,7 +26,7 @@ function destroy(deckId, cardId) {
     return knex
         .from("decks_cards")
         .where({ deck_id: deckId, multiverseid: cardId })
-        .delete()
+        .del()
 }
 
 function list(deckId) {

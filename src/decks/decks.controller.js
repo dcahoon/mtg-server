@@ -1,17 +1,14 @@
 const decksService = require("./decks.service")
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary")
 
-function deckExists(req, res, next) {
-    decksService
-        .read(req.params.userId, req.params.deckId)
-        .then((deck) => {
-            if (deck) {
-                res.locals.deck = deck
-                return next()
-            }
-            next({ status: 404, message: `Deck not found id: ${req.params.deckId}`})
-        })
-        .catch(next)
+async function deckExists(req, res, next) {
+    const { userId, deckId } = req.params
+    const deck = await decksService.read(userId, deckId)
+    if (deck) {
+        res.locals.deck = deck
+        return next()
+    }
+    next({ status: 404, message: `Deck ${deckId} not found.` })
 }
 
 async function create(req, res, next) {
@@ -30,10 +27,8 @@ async function update(req, res, next) {
         deck_id: req.params.deckId,
         ...req.body.data
     }
-    decksService
-        .update(updatedDeck)
-        .then((data) => res.json({ data }))
-        .catch(next)
+    const data = await decksService.update(updatedDeck)
+    res.json({ data })
 }
 
 function destroy(req, res, next) {
@@ -43,11 +38,9 @@ function destroy(req, res, next) {
         .catch(next)
 }
 
-function list(req, res, next) {
-    decksService
-        .list(req.params.userId)
-        .then((data) => res.json({ data }))
-        .catch(next)
+async function list(req, res, next) {
+    const data = await decksService.list()
+    res.json({ data })
 }
 
 async function allDecks(req, res, next) {

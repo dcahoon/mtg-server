@@ -24,7 +24,7 @@ function update(updatedUser) {
 
 function destroy(userId) {
     return knex("users")
-        .delete()
+        .del()
         .where({ user_id: userId })
 }
 

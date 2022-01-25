@@ -1,5 +1,7 @@
 const usersService = require("./users.service")
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary")
+const hasProperties = require("../errors/hasProperties")
+const hasRequiredProperties = hasProperties("username", "user_first_name")
 
 const VALID_PROPERTIES = [
     "username",
@@ -16,17 +18,14 @@ const VALID_PROPERTIES = [
     "updated_at",
 ]
 
-function userExists(req, res, next) {
+async function userExists(req, res, next) {
     const { userId } = req.params
-    usersService
-        .read(userId)
-        .then((user) => {
-            if (user) {
-                res.locals.user = user
-                return next()
-            }
-            next({ status: 404, message: `User ${userId} not found.` })
-        })
+    const user = await usersService.read(userId)
+    if (user) {
+        res.locals.user = user
+        return next()
+    }
+    next({ status: 404, message: `User ${userId} not found.` })
 }
 
 function hasOnlyValidProperties(req, res, next) {
@@ -56,7 +55,8 @@ function read(req, res, next) {
 
 function update(req, res, next) {
     const updatedUser = {
-        ...req.body.data
+        ...req.body.data,
+        user_id: res.locals.user.user_id,
     }
     usersService
         .update(updatedUser)
@@ -72,15 +72,13 @@ function destroy(req, res, next) {
         .catch(next)
 }
 
-function list(req, res, next) {
-    usersService
-        .list()
-        .then((data) => res.json({ data }))
-        .catch(next)
+async function list(req, res, next) {
+    const data = await usersService.list()
+    res.json({ data })
 }
 
 module.exports = {
-    create: [hasOnlyValidProperties, asyncErrorBoundary(create)],
+    create: [hasOnlyValidProperties, hasRequiredProperties, asyncErrorBoundary(create)],
     read: [userExists, read],
     update: [userExists, hasOnlyValidProperties, update],
     destroy: [userExists, destroy],
