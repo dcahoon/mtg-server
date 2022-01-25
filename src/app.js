@@ -3,6 +3,7 @@ const app = express()
 const decksRouter = require("./decks/decks.router")
 const usersRouter = require("./users/users.router")
 const cardsRouter = require("./cards/cards.router")
+const decksCardsRouter = require("./decks_cards/decks_cards.router")
 const cors = require("cors")
 
 app.use(express.json())
@@ -11,6 +12,7 @@ app.use(cors({ origin: "http://localhost:3000"}))
 app.use("/decks", decksRouter)
 app.use("/users", usersRouter)
 app.use("/cards", cardsRouter)
+app.use("/decks-cards", decksCardsRouter)
 
 // Not found handler
 app.use((req, res, next) => {

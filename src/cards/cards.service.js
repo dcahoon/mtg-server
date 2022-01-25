@@ -1,34 +1,26 @@
 const knex = require("../db/connection")
 
-
-module.exports = {
-
+function list() {
+    return knex("cards")
+        .select("*")
 }
 
+function read(multiverseid) {
+    return knex("cards")
+        .select("*")
+        .where({ "multiverseid": multiverseid })
+        .first()
+}
 
-/* 
-    name
-    artist
-    cmc
-    foreignNames
-    id
-    imageUrl
-    layout
-    legalities
-    manaCost
-    multiverseId
-    number
-    originalText
-    originalType
-    power
-    printings
-    rarity
-    rulings
-    set
-    setName
-    subtypes
-    text
-    toughness
-    type
-    types 
-*/
+function create(newCard) {
+    return knex("cards")
+        .insert(newCard)
+        .returning("*")
+        .then((createdCards) => createdCards[0])
+}
+
+module.exports = {
+    list,
+    read,
+    create,
+}
