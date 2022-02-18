@@ -2,22 +2,18 @@ const router = require("express").Router({ mergeParams: true })
 const controller = require("./decks.controller")
 const methodNotAllowed = require("../errors/methodNotAllowed")
 
-router.route("/:userId/new")
+router.route("/new")
     .post(controller.create)
     .all(methodNotAllowed)
 
-router.route("/:userId/:deckId")
+router.route("/:deckId")
     .get(controller.read)
     .put(controller.update)
     .delete(controller.destroy)
     .all(methodNotAllowed)
 
-router.route("/:userId")
-    .get(controller.list)
-    .all(methodNotAllowed)
-
 router.route("/")
-    .get(controller.allDecks)
+    .get(controller.list)
     .all(methodNotAllowed)
 
 module.exports = router

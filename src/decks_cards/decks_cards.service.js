@@ -30,7 +30,8 @@ function destroy(deckId, cardId) {
 }
 
 function list(deckId) {
-    return knex("decks_cards")
+    return knex("decks_cards as dc")
+        .join("cards as c", "c.multiverseid", "dc.multiverseid")
         .select("*")
         .where({ "deck_id": deckId })
 }

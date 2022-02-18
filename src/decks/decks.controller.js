@@ -43,18 +43,10 @@ async function list(req, res, next) {
     res.json({ data })
 }
 
-async function allDecks(req, res, next) {
-    decksService
-        .allDecks()
-        .then((data) => res.json({ data }))
-        .catch(next)
-}
-
 module.exports = {
     create: [asyncErrorBoundary(create)],
     read: [asyncErrorBoundary(deckExists), asyncErrorBoundary(read)],
     update: [asyncErrorBoundary(update)],
     destroy: [asyncErrorBoundary(deckExists), asyncErrorBoundary(destroy)],
     list: [asyncErrorBoundary(list)],
-    allDecks: [asyncErrorBoundary(allDecks)],
 }

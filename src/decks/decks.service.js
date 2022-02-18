@@ -34,16 +34,10 @@ function list(userId) {
         .where({ "d.user_id": userId })
 }
 
-function allDecks() {
-    return knex("decks")
-        .select("*")
-}
-
 module.exports = {
     create,
     read,
     update,
     destroy,
     list,
-    allDecks,
 }

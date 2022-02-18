@@ -70,3 +70,20 @@ module.exports = {
     list,
     allDecksCards,
 }
+
+
+
+/* 
+https://knexjs.org/
+https://expressjs.com/
+https://nodejs.org/en/docs/
+
+https://www.youtube.com/watch?v=ldYcgPKEZC8
+
+https://flaviocopes.com/tags/express/
+
+https://12factor.net/
+
+https://apisyouwonthate.com/
+
+ */
